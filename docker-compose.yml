@@ -1,0 +1,23 @@
+version: '2'
+services:
+  nginx:
+    image: docker.io/nginx:alpine
+    hostname: nginx
+    ports:
+      - "80:80"
+    networks:
+      - nn
+    volumes:
+      - /home/duoyi/code/docker/docker-fpm/nginx/conf.d:/etc/nginx/conf.d
+      - /var/www:/usr/share/nginx/html
+  node:
+    image: docker.io/php:fpm-alpine3.7
+    hostname: node
+    networks:
+      - nn
+    volumes:
+      - /home/duoyi/code/docker/docker-fpm/fpm:/usr/local/etc
+      - /var/www:/var/www/html
+networks:
+   nn:
+     driver: bridge
